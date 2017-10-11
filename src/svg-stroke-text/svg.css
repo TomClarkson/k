@@ -1,0 +1,12 @@
+.stroke-svg {
+  width: 100%;
+}
+.text {
+  font-family: "Bangers", cursive;
+  letter-spacing: 0.05em;
+  color: white;
+  font-size: 36px;
+}
+.text {
+  stroke-width: 2%;
+}
