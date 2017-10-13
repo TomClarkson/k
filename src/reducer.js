@@ -1,5 +1,11 @@
 import levelCharacters from './levelCharacters';
 
+const makeInitialGameState = () => {
+  return {
+
+  };
+};
+
 const initialState = {
   isTouch: false,
   isOnHomeScreen: false,
@@ -201,15 +207,17 @@ export default (state = initialState, action) => {
         successBrickCount: state.successBrickCount + 1,
         spikeIsShooting: true
       };
-    case 'KANA_SHOOT_ANIMATE_OUT_CORRECT_BRICK':
+    case 'KANA_SHOOT_ANIMATE_OUT_CORRECT_BRICK': {
       const hitBrick = state.bricks.find(b => b.id === action.brick.id);
+      const hitBricks = !hitBrick ? state.hitBricks : state.hitBricks.concat(hitBrick);
 
       return {
         ...state,
         spikeIsShooting: false,
-        hitBricks: state.hitBricks.concat(hitBrick),
+        hitBricks,
         bricks: state.bricks.filter(b => b.id !== action.brick.id),
       };
+    }
     default:
       return state;
   }

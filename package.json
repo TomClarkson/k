@@ -10,6 +10,7 @@
     "react-dom": "^16.0.0",
     "react-dom-animated": "^1.0.3",
     "react-motion": "^0.4.7",
+    "react-native-web": "^0.1.8",
     "react-redux": "^5.0.5",
     "react-scripts": "1.0.10",
     "redux": "^3.7.2",

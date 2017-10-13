@@ -13,6 +13,7 @@ const selectBoxWrapperStyles = {
 };
 
 const selectBoxBaseStyles = {
+  display: 'flex',
   background: '#363636',
   border: '5px solid #fff',
   borderRadius: 30,

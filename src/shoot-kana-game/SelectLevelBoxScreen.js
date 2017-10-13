@@ -30,7 +30,7 @@ const SelectLevelBoxScreen = ({ boxes, onSelectLevel }) => {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        overflowY: 'scroll'
+        overflowY: 'auto'
       }}>
         {boxes.map((b, i) =>
           <Box

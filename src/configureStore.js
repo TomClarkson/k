@@ -17,7 +17,7 @@ const epicMiddleware = makeEpicMiddleware();
   // other store enhancers if any
 );
 
-  const store = createStore(rootReducer, {tick: 0, ticks: []}, enhancer)
+  const store = createStore(rootReducer, enhancer)
 
   if (process.env.NODE_ENV !== "production") {
     if (module.hot) {
