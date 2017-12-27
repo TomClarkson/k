@@ -146,7 +146,15 @@ export default (state = initialState, action) => {
       };
     case 'KANA_SHOOT_GOT_BRICK_INCORRECT': {
       // KANA_SHOOT_GAME_TEXT_ENTERED wrong detection needs to get extracted before we can use this action
-      return state;
+      const bricksWithWrongItem = state.bricks.map(b => b.id !== action.brickId ? b : {
+        ...b,
+        userAnsweredWrong: true
+      });
+
+      return {
+        ...state,
+        bricks: bricksWithWrongItem
+      };
     }
     case 'KANA_SHOOT_GAME_TEXT_ENTERED':
       const bottomBrick = getBottomBrick(state.bricks);

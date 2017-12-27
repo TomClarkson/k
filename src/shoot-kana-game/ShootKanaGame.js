@@ -17,6 +17,7 @@ import BodyMovin from '../animations/BodyMovin';
 import spikeFallingOverAnimationData from './spikeFallingOver.json';
 import YouLoseScreen from './YouLoseScreen';
 import YouWinConfettiAnimation from './YouWinConfettiAnimation';
+import StartNextLevelScreen from './StartNextLevelScreen';
 
 const getSpikeLeft = ({bottomBrick, gameWidth, spikeSize}) => {
   const ballLeftInSpikeWrapper = (spikeSize / 2) + 27;
@@ -31,6 +32,13 @@ export class ShootKanaGamePresentation extends Component {
   state = {
     showNextLevelPreview: false
   }; 
+  componentWillReceiveProps(nextProps) {
+    if(!nextProps.hasCompletedLevel && this.props.hasCompletedLevel) {
+      this.setState({
+        showNextLevelPreview: false
+      });      
+    }
+  }
   onYouWinAnimationFinished = () => {
     this.setState({
       showNextLevelPreview: true
@@ -74,7 +82,7 @@ export class ShootKanaGamePresentation extends Component {
           <YouLoseScreen />
         }
         {this.state.showNextLevelPreview &&
-          <YouLoseScreen />
+          <StartNextLevelScreen />
         }
         {hasCompletedLevel &&
           <div style={{position: 'absolute', top: 0, left: 0, height: brickAreaHeight - userInputAreaHeight, width: gameWidth, zIndex: 1}}>
