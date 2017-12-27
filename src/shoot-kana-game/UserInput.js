@@ -41,11 +41,4 @@ export const UserInputPresentation = ({
   );
 };
 
-export default connect(
-  state => ({
-    userText: state.kanaShootGame.userText,
-    userAnswerIsIncorrect: state.kanaShootGame.userAnswerIsIncorrect,
-    isTouch: state.kanaShootGame.isTouch
-  }),
-  { userTyped }
-)(UserInputPresentation);
+export default UserInputPresentation;

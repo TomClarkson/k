@@ -15,6 +15,10 @@ export default class ShooterSpike extends React.Component {
     options.wrapper = this.wrapper;
     options.renderer = 'svg';
     this.animation = bodymovin.loadAnimation(options);
+
+    if(this.props.isShooting) {
+      this.playAnimation();
+    }
   }
   componentWillUnmount () {
     this.animation.destroy();

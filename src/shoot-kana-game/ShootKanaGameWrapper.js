@@ -39,12 +39,12 @@ class ShootKanaGameInnerWrapper extends Component {
       );
     }
 
-    if(hasCompletedLevel) {
-      return (
-        <YouWinGameScreen
-          goToNextLevel={() => startLevel(currentLevelIndex + 1)} />
-      );
-    }
+    // if(hasCompletedLevel) {
+    //   return (
+    //     <YouWinGameScreen
+    //       goToNextLevel={() => startLevel(currentLevelIndex + 1)} />
+    //   );
+    // }
 
     if(isOnHomeScreen) {
       return (
@@ -97,7 +97,8 @@ const borderWrapperStyles = {
   justifyContent: 'center'
 };
 
-const MAX_GAME_HEIGHT = 600;
+const MAX_GAME_HEIGHT = 700;
+const MAX_GAME_WIDTH = 600;
 
 class ShootKanaGameOuterWrapper extends Component {
   constructor(props) {
@@ -106,7 +107,7 @@ class ShootKanaGameOuterWrapper extends Component {
     const isTouch = 'ontouchstart' in window;
 
     const gameHeight = Math.min(window.innerHeight, MAX_GAME_HEIGHT);
-    const gameWidth = Math.min(window.innerWidth, MAX_GAME_HEIGHT);
+    const gameWidth = Math.min(window.innerWidth, MAX_GAME_WIDTH);
 
     this.state = {
       gameHeight,
@@ -119,7 +120,7 @@ class ShootKanaGameOuterWrapper extends Component {
 
     const numberOfBricksForLevel = 3;
 
-    if(gameHeight === MAX_GAME_HEIGHT) {
+    if(!isTouch) {
       return {
         gameHeight,
         gameWidth,
@@ -137,12 +138,12 @@ class ShootKanaGameOuterWrapper extends Component {
       gameHeight,
       gameWidth,
       numberOfBricksForLevel,
-      brickHeight: 80,
-      brickWidth: 80,
-      brickVy: 60,
+      brickHeight: 40,
+      brickWidth: 40,
+      brickVy: 30,
       isTouch,
-      spikeSize: 200,
-      userInputAreaHeight: 80
+      spikeSize: 150,
+      userInputAreaHeight: 70
     };
   }
   componentDidMount() {

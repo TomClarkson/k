@@ -23,6 +23,8 @@ import ShootKanaGameWrapper from './ShootKanaGameWrapper';
 import spikeFallingOverAnimationData from './spikeFallingOver.json';
 import HomeBackground from './HomeBackground';
 import LevelPreview from './LevelPreview';
+import YouWinLevel from './YouWinLevel';
+import { ShootKanaGamePresentation } from './ShootKanaGame';
 
 const characters = [
   {
@@ -90,6 +92,43 @@ const hitBrickWithWrong = {
 };
 
 stories
+  .add('Finished Game', () => {
+    const finishedGameProps = {
+      isTouch:true,
+      isOnHomeScreen:false,
+      kanaType: "hirigana",
+      isOnLevelSelect:false,
+      gameHeight:667,
+      gameWidth:375,
+      "numberOfBricksForLevel":5,
+      "failedBrickCount":0,
+      "successBrickCount":5,
+      "brickHeight":40,
+      "brickWidth":40,
+      "brickVy":30,
+      "bricks":[],
+      "hitBricks":[],
+      "userText":"",
+      "shooterWidth":30,
+      "hasLostLevel":false,
+      "hasCompletedLevel":true,
+      "userAnswerIsIncorrect":false,
+      "currentLevelIndex":0,
+      "spikeSize":150,
+      "userInputAreaHeight":70,
+      "spikeIsShooting":false,
+      "isOnLevelPreview":false
+    };
+    return (
+      <ShootKanaGamePresentation {...finishedGameProps} />
+    );
+  })
+  .add('You Win Level', () => 
+    <YouWinLevel 
+      gameWidth={300} 
+      gameHeight={500} 
+      />
+  )
   .add('Level Preview', () => {
     const levelCharacters = [
       {

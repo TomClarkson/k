@@ -16,7 +16,7 @@ const getRandomPosition = (min, max) =>
 export const createBrick = ({ brickVy, characters, brickWidth, brickHeight, gameWidth }) => {
   const character = getRandomItem(characters);
 
-  const left = getRandomPosition(0, gameWidth - brickWidth);
+  const left = getRandomPosition(0, gameWidth - brickWidth - 20);
 
   const brick = {
     id: uuid.v4(),
@@ -124,8 +124,8 @@ const addBrickEpic = (action$, { getState }) =>
         )
     );
 
-const TICKER_INTERVAL = 1000 / 60;
-// const TICKER_INTERVAL = 1000;
+// const TICKER_INTERVAL = 1000 / 60;
+const TICKER_INTERVAL = 1000;
 
 const makeTimeObj = () => ({
   time: Date.now()
@@ -155,11 +155,7 @@ const userTypedCharacterEpic = (action$, { getState }) =>
             .mapTo({type: 'KANA_SHOOT_GAME_CLEAR_TEXT'})
         );
       }
-      return Observable.of({
-        type: 'KANA_SHOOT_GOT_BRICK_INCORRECT',
-        bottomBrick,
-        brickId
-      });
+      return Observable.of();
     });
 
 const userCharacterSelectedEpic = (action$, { getState }) =>

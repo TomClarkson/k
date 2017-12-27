@@ -2,13 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Brick from './Brick';
 import HitBrick from './HitBrick';
-import { startLevel, stopGame, userTyped, brickHitByBullet, hitBrickAnimationFinished, userSelectedCharacter } from '../actions';
+import { 
+  startLevel, 
+  stopGame, 
+  userTyped, 
+  brickHitByBullet, 
+  hitBrickAnimationFinished, 
+  userSelectedCharacter 
+} from '../actions';
 import { getBottomBrick, getBrickAreaHeight } from '../reducer';
 import ShooterSpike from './ShooterSpike';
 import UserInput from './UserInput';
 import BodyMovin from '../animations/BodyMovin';
 import spikeFallingOverAnimationData from './spikeFallingOver.json';
 import YouLoseScreen from './YouLoseScreen';
+import YouWinConfettiAnimation from './YouWinConfettiAnimation';
 
 const getSpikeLeft = ({bottomBrick, gameWidth, spikeSize}) => {
   const ballLeftInSpikeWrapper = (spikeSize / 2) + 27;
@@ -20,6 +28,14 @@ const getSpikeLeft = ({bottomBrick, gameWidth, spikeSize}) => {
 };
 
 export class ShootKanaGamePresentation extends Component {
+  state = {
+    showNextLevelPreview: false
+  }; 
+  onYouWinAnimationFinished = () => {
+    this.setState({
+      showNextLevelPreview: true
+    });
+  }
   handleChange = e => {
     const userText = e.target.value.toLowerCase();
     this.props.userTyped(userText);
@@ -38,7 +54,12 @@ export class ShootKanaGamePresentation extends Component {
       userSelectedCharacter,
       spikeSize,
       spikeIsShooting,
-      hasLostLevel
+      hasLostLevel,
+      userTyped,
+      userText,
+      userAnswerIsIncorrect,
+      isTouch,
+      hasCompletedLevel
     } = this.props;
 
     const bottomBrick = getBottomBrick(bricks);
@@ -48,9 +69,22 @@ export class ShootKanaGamePresentation extends Component {
     const brickAreaHeight = getBrickAreaHeight({ spikeSize, gameHeight, userInputAreaHeight });
 
     return (
-      <div>
+      <div style={{position: 'relative'}}>
         {hasLostLevel &&
           <YouLoseScreen />
+        }
+        {this.state.showNextLevelPreview &&
+          <YouLoseScreen />
+        }
+        {hasCompletedLevel &&
+          <div style={{position: 'absolute', top: 0, left: 0, height: brickAreaHeight - userInputAreaHeight, width: gameWidth, zIndex: 1}}>
+            <YouWinConfettiAnimation
+              spikeSize={spikeSize}
+              spikeLeft={spikeLeft}
+              ballStartTop={gameHeight - userInputAreaHeight - 30}
+              onAnimationFinished={this.onYouWinAnimationFinished}
+            />
+          </div>
         }
         <div style={{position: 'relative', background: '#363636', height: brickAreaHeight, width: gameWidth}}>
           <button style={{position: 'absolute', zIndex: 3, top: 10, left: 10}} onClick={stopGame}>STOP</button>
@@ -72,7 +106,7 @@ export class ShootKanaGamePresentation extends Component {
           <div style={{height: spikeSize, width: spikeSize}}>
             {!hasLostLevel &&
               <ShooterSpike
-                isShooting={spikeIsShooting}
+                isShooting={spikeIsShooting || hasCompletedLevel}
                 spikeLeft={spikeLeft} />
             }
             {hasLostLevel &&
@@ -89,8 +123,12 @@ export class ShootKanaGamePresentation extends Component {
         </div>
         <UserInput
           key={bottomBrick && bottomBrick.id}
+          userText={userText}
+          userAnswerIsIncorrect={userAnswerIsIncorrect}
+          isTouch={isTouch}
           height={userInputAreaHeight}
           width={gameWidth}
+          userTyped={userTyped}
           userSelectedCharacter={userSelectedCharacter}
           bottomBrick={bottomBrick}
           characters={characters} />
@@ -98,6 +136,7 @@ export class ShootKanaGamePresentation extends Component {
     );
   }
 }
+
 export default connect(
   state => state.kanaShootGame,
   { userTyped, brickHitByBullet, hitBrickAnimationFinished, startLevel, stopGame, userSelectedCharacter }

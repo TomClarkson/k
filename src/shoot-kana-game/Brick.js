@@ -2,21 +2,6 @@ import React from 'react';
 import bubbleCurve from './bubbleCurve.svg';
 import Animated from 'react-dom-animated';
 
-const wrongBubbleStyles = {
-  position: 'absolute',
-  top: -20,
-  zIndex: -1,
-  borderRadius: 50,
-  right: -20,
-  height: 50,
-  width: 50,
-  background: '#F7DEE0',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  color: 'red'
-};
-
 class IncorrectAnswerBubble extends React.Component {
   constructor(props) {
     super(props);
@@ -27,8 +12,47 @@ class IncorrectAnswerBubble extends React.Component {
       toValue: 1
     }).start();
   }
+  makeWrongBubbleDimensionStyles = () => {
+    if(this.props.brickHeight === 40) {
+      return {
+        top: -10,
+        borderRadius: 35,
+        right: -24,
+        height: 35,
+        width: 35,
+      };
+    }
+
+    return {
+      top: -20,
+      borderRadius: 50,
+      right: -20,
+      height: 50,
+      width: 50,
+    }
+  }
+  makeWrongBubbleStyles = () => {
+    const bubbleDimensionStyles = this.makeWrongBubbleDimensionStyles();
+
+    const baseStyles = {
+      position: 'absolute',
+      zIndex: -1,
+      background: '#F7DEE0',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: 'red'
+    };
+
+    return {
+      ...baseStyles,
+      ...bubbleDimensionStyles
+    };
+  }
   render() {
     const { romaji } = this.props;
+
+    const wrongBubbleStyles = this.makeWrongBubbleStyles();
     return (
       <Animated.div style={{
         ...wrongBubbleStyles,
@@ -63,7 +87,7 @@ const Brick = ({ brick }) => {
         height
       }}>
         {userAnsweredWrong &&
-          <IncorrectAnswerBubble romaji={romaji} />
+          <IncorrectAnswerBubble brickHeight={height} romaji={romaji} />
         }
         <span>{character}</span>
       </div>

@@ -26,7 +26,7 @@ class HitBrick extends Component {
 
     const sound = popSounds[Math.floor(Math.random()*popSounds.length)];
 
-    (new Audio(sound)).play();
+    // (new Audio(sound)).play();
 
     this.props.brickHitByBullet(this.props.brick.id);
   };

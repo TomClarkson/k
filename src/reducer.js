@@ -144,6 +144,10 @@ export default (state = initialState, action) => {
         ...state,
         bricks: state.bricks.concat(action.brick)
       };
+    case 'KANA_SHOOT_GOT_BRICK_INCORRECT': {
+      // KANA_SHOOT_GAME_TEXT_ENTERED wrong detection needs to get extracted before we can use this action
+      return state;
+    }
     case 'KANA_SHOOT_GAME_TEXT_ENTERED':
       const bottomBrick = getBottomBrick(state.bricks);
       const textMatchesBottomBrick = bottomBrick && action.userText === bottomBrick.romaji;
