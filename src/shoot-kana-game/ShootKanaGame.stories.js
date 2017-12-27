@@ -22,6 +22,7 @@ import ReduxWrapper from '../storybook/ReduxWrapper';
 import ShootKanaGameWrapper from './ShootKanaGameWrapper';
 import spikeFallingOverAnimationData from './spikeFallingOver.json';
 import HomeBackground from './HomeBackground';
+import LevelPreview from './LevelPreview';
 
 const characters = [
   {
@@ -89,6 +90,39 @@ const hitBrickWithWrong = {
 };
 
 stories
+  .add('Level Preview', () => {
+    const levelCharacters = [
+      {
+        character: 'さ',
+        romaji: 'sa'
+      },
+      {
+        character: 'し',
+        romaji: 'shi'
+      },
+      {
+        character: 'す',
+        romaji: 'su'
+      },
+      {
+        character: 'せ',
+        romaji: 'se'
+      },
+      {
+        character: 'そ',
+        romaji: 'so'
+      }
+    ];
+
+    return (
+      <LevelPreview 
+        levelCharacters={levelCharacters}
+        title="Start level!"
+        gameWidth={300} 
+        gameHeight={500} 
+        startLevel={action('start level')} />
+    );
+  })
   .add('Bubble Explosion Animation', () => {
     const bodymovinOptions = {
       loop: true,

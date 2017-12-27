@@ -40,11 +40,11 @@ const titleStyles = {
 };
 
 export default class HomeBackground extends Component {
-  componentDidMount() {
-    console.dir(this.img);
+  static defaultProps = {
+    onHeaderClick: null
   }
   render() {
-    const { height, width, title, children } = this.props;
+    const { height, width, title, children, onHeaderClick } = this.props;
 
     const selectBoxStyles = {
       ...selectBoxBaseStyles,
@@ -62,12 +62,14 @@ export default class HomeBackground extends Component {
       justifyContent: 'center'
     };
 
+    const cursorStyles = onHeaderClick ? {cursor: 'pointer'} : {};
+
     return (
       <div style={wrapperStyles}>
         <img ref={el => this.img = el} style={{height, width}} src={homeBackgroundSVG} alt="" />
         <div style={selectBoxWrapperStyles}>
           <div style={selectBoxStyles}>
-            <div style={titleStyles}>{title}</div>
+            <div style={{...titleStyles, ...cursorStyles}} onClick={onHeaderClick}>{title}</div>
             {children}
           </div>
         </div>

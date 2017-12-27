@@ -4,25 +4,11 @@ import ShootKanaGame from './ShootKanaGame';
 import SelectHiriganaKatakanaScreen from './SelectHiriganaKatakanaScreen';
 import SelectLevelBoxScreen from './SelectLevelBoxScreen';
 import YouWinGameScreen from './YouWinGameScreen';
-import { startGame, playHiriganaLevels, playKatakanaLevels, startLevel } from '../actions';
+import { startGame, playHiriganaLevels, playKatakanaLevels, startLevel, selectLevel } from '../actions';
 import './game.css';
 import HomeBackground from './HomeBackground';
-// import jenCutBG from '../../common/assets/images/jen-cut-bg.png';
-// const japanBGStyles = {
-//   position: 'absolute',
-//   top: 0,
-//   left: 0,
-//   right: 0,
-//   bottom: 0,
-//   display: 'flex',
-//   justifyContent: 'center',
-//   alignItems: 'flex-end',
-//   overflow: 'hidden'
-// };
-//
-// <div style={japanBGStyles}>
-//   <img src={jenCutBG} alt="japan background" />
-// </div>
+import LevelPreview from './LevelPreview';
+
 class ShootKanaGameInnerWrapper extends Component {
   render() {
     const {
@@ -36,8 +22,22 @@ class ShootKanaGameInnerWrapper extends Component {
       hasCompletedLevel,
       currentLevelIndex,
       gameHeight,
-      gameWidth
+      gameWidth,
+      selectLevel,
+      isOnLevelPreview
     } = this.props;
+
+    if(isOnLevelPreview) {
+      const charactersForSelectedLevel = levelCharacters[kanaType][currentLevelIndex];
+      return (
+        <LevelPreview 
+          title="Start level"
+          levelCharacters={charactersForSelectedLevel}
+          startLevel={() => startLevel(currentLevelIndex)}
+          gameHeight={gameHeight} 
+          gameWidth={gameWidth} />
+      );
+    }
 
     if(hasCompletedLevel) {
       return (
@@ -72,7 +72,7 @@ class ShootKanaGameInnerWrapper extends Component {
           height={gameHeight}>
           <SelectLevelBoxScreen
             boxes={boxes}
-            onSelectLevel={startLevel} />
+            onSelectLevel={selectLevel} />
         </HomeBackground>
       );
     }
@@ -97,13 +97,16 @@ const borderWrapperStyles = {
   justifyContent: 'center'
 };
 
+const MAX_GAME_HEIGHT = 600;
+
 class ShootKanaGameOuterWrapper extends Component {
   constructor(props) {
     super(props);
 
-    const gameHeight = Math.min(window.innerHeight, 600);
-    const gameWidth = Math.min(window.innerWidth, 600);
     const isTouch = 'ontouchstart' in window;
+
+    const gameHeight = Math.min(window.innerHeight, MAX_GAME_HEIGHT);
+    const gameWidth = Math.min(window.innerWidth, MAX_GAME_HEIGHT);
 
     this.state = {
       gameHeight,
@@ -111,20 +114,41 @@ class ShootKanaGameOuterWrapper extends Component {
       isTouch
     };
   }
-  componentDidMount() {
+  makeGameData = () => {
     const { isTouch, gameHeight, gameWidth } = this.state;
 
-    this.props.startGame({
+    const numberOfBricksForLevel = 3;
+
+    if(gameHeight === MAX_GAME_HEIGHT) {
+      return {
+        gameHeight,
+        gameWidth,
+        numberOfBricksForLevel,
+        brickHeight: 80,
+        brickWidth: 80,
+        brickVy: 60,
+        isTouch,
+        spikeSize: 200,
+        userInputAreaHeight: 80
+      };
+    }
+
+    return {
       gameHeight,
       gameWidth,
-      numberOfBricksForLevel: 3,
+      numberOfBricksForLevel,
       brickHeight: 80,
       brickWidth: 80,
       brickVy: 60,
       isTouch,
       spikeSize: 200,
       userInputAreaHeight: 80
-    });
+    };
+  }
+  componentDidMount() {
+    this.props.startGame(
+      this.makeGameData()
+    );
   }
   render() {
     const { gameHeight, gameWidth, isTouch } = this.state;
@@ -146,6 +170,7 @@ class ShootKanaGameOuterWrapper extends Component {
 
 export default connect(
   state => ({
+    isOnLevelPreview: state.kanaShootGame.isOnLevelPreview,
     isOnHomeScreen: state.kanaShootGame.isOnHomeScreen,
     isOnLevelSelect: state.kanaShootGame.isOnLevelSelect,
     levelCharacters: state.kanaShootGame.levelCharacters,
@@ -153,5 +178,5 @@ export default connect(
     hasCompletedLevel: state.kanaShootGame.hasCompletedLevel,
     currentLevelIndex: state.kanaShootGame.currentLevelIndex,
   }),
-  { startGame, playHiriganaLevels, playKatakanaLevels, startLevel }
+  { startGame, playHiriganaLevels, playKatakanaLevels, startLevel, selectLevel }
 )(ShootKanaGameOuterWrapper);

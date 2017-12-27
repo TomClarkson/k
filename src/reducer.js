@@ -101,6 +101,13 @@ export default (state = initialState, action) => {
         isOnLevelSelect: true,
         isOnHomeScreen: false
       };
+    case 'SELECT_KANA_SHOOT_LEVEL':
+      return {
+        ...state,
+        isOnLevelSelect: false,
+        currentLevelIndex: action.index,
+        isOnLevelPreview: true
+      };
     case 'START_KANA_SHOOT_GAME':
       return {
         ...state,
@@ -123,6 +130,7 @@ export default (state = initialState, action) => {
         failedBrickCount: 0,
         successBrickCount: 0,
         isOnLevelSelect: false,
+        isOnLevelPreview: false,
         currentLevelIndex: action.index,
         hasCompletedLevel: false,
         bricks: [],

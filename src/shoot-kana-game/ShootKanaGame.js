@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Brick from './Brick';
 import HitBrick from './HitBrick';
-import { startLevel, startGame, stopGame, userTyped, brickHitByBullet, hitBrickAnimationFinished, userSelectedCharacter } from '../actions';
+import { startLevel, stopGame, userTyped, brickHitByBullet, hitBrickAnimationFinished, userSelectedCharacter } from '../actions';
 import { getBottomBrick, getBrickAreaHeight } from '../reducer';
 import ShooterSpike from './ShooterSpike';
 import UserInput from './UserInput';
@@ -100,5 +100,5 @@ export class ShootKanaGamePresentation extends Component {
 }
 export default connect(
   state => state.kanaShootGame,
-  { startGame, userTyped, brickHitByBullet, hitBrickAnimationFinished, startLevel, stopGame, userSelectedCharacter }
+  { userTyped, brickHitByBullet, hitBrickAnimationFinished, startLevel, stopGame, userSelectedCharacter }
 )(ShootKanaGamePresentation);

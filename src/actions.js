@@ -90,20 +90,31 @@ export const stopGame = () => ({
   type: 'STOP_KANA_SHOOT_GAME'
 });
 
+export const selectLevel = (index) => ({
+  type: 'SELECT_KANA_SHOOT_LEVEL',
+  index
+});
+
 export const startLevel = (index) => ({
   type: 'START_KANA_SHOOT_LEVEL',
   index
 });
 
+const makeBrickIntervals$ = (interval) => {
+  const immediate$ = Observable.of(1);
+  const interval$ = Observable
+    .timer(100)
+    .switchMap(() => Observable.interval(2000));
+
+  return Observable.merge(immediate$, interval$);
+};
+
 const addBrickEpic = (action$, { getState }) =>
   action$.ofType("START_KANA_SHOOT_LEVEL")
     .switchMap(() =>
-      Observable
-        .interval(2000)
+        makeBrickIntervals$(2000)
+        .do(() => console.log('shes ticking '))
         .map(() =>
-          addBrick(getState().kanaShootGame)
-        )
-        .startWith(
           addBrick(getState().kanaShootGame)
         )
         .take(getState().kanaShootGame.numberOfBricksForLevel)
@@ -113,8 +124,8 @@ const addBrickEpic = (action$, { getState }) =>
         )
     );
 
-// const TICKER_INTERVAL = 1000 / 60;
-const TICKER_INTERVAL = 1000;
+const TICKER_INTERVAL = 1000 / 60;
+// const TICKER_INTERVAL = 1000;
 
 const makeTimeObj = () => ({
   time: Date.now()
