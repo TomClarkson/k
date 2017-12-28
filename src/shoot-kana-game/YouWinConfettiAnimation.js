@@ -3,6 +3,9 @@ import Confetti from 'react-dom-confetti';
 import Bullet from './Bullet';
 import SVGStrokeText from '../svg-stroke-text/SVGStrokeText';
 import Animated from 'react-dom-animated';
+import ShooterSpike from './ShooterSpike';
+import BodyMovin from '../animations/BodyMovin';
+import happySpikeNoCircle from './HappySpikeNoCircle.json';
 
 const bulletSize = 40;
 
@@ -19,13 +22,20 @@ export default class YouWinConfettiAnimation extends Component {
     super(props, context);
     this.animatedValue = new Animated.Value(0);
     this.state = {
-      showConfetti: false
+      showConfetti: false,
+      showHappySpike: false
     };
   };
   componentDidMount() {
     setTimeout(() => {
       this.animateTextIn();
     }, 500);
+
+    setTimeout(() => {
+      this.setState({
+        showHappySpike: true
+      });
+    }, 300);
   }
   animateTextIn = () => {
     Animated.spring(this.animatedValue, {
@@ -38,8 +48,14 @@ export default class YouWinConfettiAnimation extends Component {
     this.setState({showConfetti: true});
   }
   render() {
-    const { showConfetti } = this.state;
-    const { ballStartTop, spikeLeft, spikeSize } = this.props;
+    const { showConfetti, showHappySpike } = this.state;
+    const { 
+      ballStartTop, 
+      spikeLeft, 
+      spikeSize,
+      brickAreaHeight
+    } = this.props;
+
     const magicNumber = 5;
     const ballLeftInSpikeWrapper = (spikeSize / 2) + magicNumber;
     const bulletLeft = spikeLeft + ballLeftInSpikeWrapper;
@@ -61,22 +77,40 @@ export default class YouWinConfettiAnimation extends Component {
 
     const targetTop = 200;
     // const (spikeSize / 2) + 27
+
+    const bodymovinOptions = {
+      loop: true,
+      autoplay: true,
+      prerender: true,
+      animationData: happySpikeNoCircle
+    };
+
     return (
       <div>
         {!showConfetti &&
           <Bullet
-          onAnimationFinished={this.bulletAnimationFinished}
-          left={bulletLeft}
-          size={40}
-          initialTop={ballStartTop}
-          targetTop={targetTop} />
+            onAnimationFinished={this.bulletAnimationFinished}
+            left={bulletLeft}
+            size={40}
+            initialTop={ballStartTop}
+            targetTop={targetTop} />
         }
         <Animated.div style={textStyles}>
           <SVGStrokeText fontSize={40} text="Nice Work!" />
         </Animated.div>
         
-        <div style={{position: 'absolute', height: 40, top: targetTop, left: bulletLeft - 20, width: 40}} className="confetti-start-wrapper">
+        <div style={{position: 'absolute', height: 40, top: targetTop + 100, left: bulletLeft + 20, width: 40}} className="confetti-start-wrapper">
           <Confetti active={showConfetti} config={fettiFig} />
+        </div>
+        <div style={{position: 'absolute', top: brickAreaHeight, left: spikeLeft, height: spikeSize, width: spikeSize}}>
+          {!showHappySpike &&
+            <ShooterSpike
+              isShooting={true}
+              spikeLeft={0} />
+          }
+          {showHappySpike &&
+            <BodyMovin options={bodymovinOptions} />  
+          }
         </div>
       </div>
     );

@@ -25,6 +25,7 @@ import HomeBackground from './HomeBackground';
 import LevelPreview from './LevelPreview';
 import YouWinLevel from './YouWinLevel';
 import { ShootKanaGamePresentation } from './ShootKanaGame';
+import happySpikeNoCircle from './HappySpikeNoCircle.json';
 
 const characters = [
   {
@@ -160,6 +161,20 @@ stories
         gameWidth={300} 
         gameHeight={500} 
         startLevel={action('start level')} />
+    );
+  })
+  .add('Happy Spike', () => {
+    const bodymovinOptions = {
+      loop: true,
+      autoplay: true,
+      prerender: true,
+      animationData: happySpikeNoCircle
+    };
+
+    return (
+      <div style={{height: 400, width: 400}}>
+        <BodyMovin options={bodymovinOptions} />
+      </div>
     );
   })
   .add('Bubble Explosion Animation', () => {

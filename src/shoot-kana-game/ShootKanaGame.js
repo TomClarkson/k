@@ -70,6 +70,8 @@ export class ShootKanaGamePresentation extends Component {
       hasCompletedLevel
     } = this.props;
 
+    const { showNextLevelPreview } = this.state;
+
     const bottomBrick = getBottomBrick(bricks);
 
     const spikeLeft = getSpikeLeft({bottomBrick, gameWidth, spikeSize});
@@ -81,12 +83,13 @@ export class ShootKanaGamePresentation extends Component {
         {hasLostLevel &&
           <YouLoseScreen />
         }
-        {this.state.showNextLevelPreview &&
+        {showNextLevelPreview && 
           <StartNextLevelScreen />
         }
         {hasCompletedLevel &&
           <div style={{position: 'absolute', top: 0, left: 0, height: brickAreaHeight - userInputAreaHeight, width: gameWidth, zIndex: 1}}>
             <YouWinConfettiAnimation
+              brickAreaHeight={brickAreaHeight}
               spikeSize={spikeSize}
               spikeLeft={spikeLeft}
               ballStartTop={gameHeight - userInputAreaHeight - 30}
@@ -112,9 +115,9 @@ export class ShootKanaGamePresentation extends Component {
         </div>
         <div style={{height: spikeSize, width: gameWidth, background: '#363636', position: 'relative'}}>
           <div style={{height: spikeSize, width: spikeSize}}>
-            {!hasLostLevel &&
+            {!hasLostLevel && !hasCompletedLevel &&
               <ShooterSpike
-                isShooting={spikeIsShooting || hasCompletedLevel}
+                isShooting={spikeIsShooting}
                 spikeLeft={spikeLeft} />
             }
             {hasLostLevel &&
