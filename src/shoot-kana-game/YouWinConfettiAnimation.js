@@ -7,8 +7,6 @@ import ShooterSpike from './ShooterSpike';
 import BodyMovin from '../animations/BodyMovin';
 import happySpikeNoCircle from './HappySpikeNoCircle.json';
 
-const bulletSize = 40;
-
 const fettiFig = {
   angle: 90,
   spread: 70,
@@ -57,11 +55,9 @@ export default class YouWinConfettiAnimation extends Component {
   render() {
     const { showConfetti, showHappySpike, animateInBullet } = this.state;
     const { 
-      ballStartTop, 
       spikeLeft, 
       spikeSize,
-      brickAreaHeight,
-      isTouch
+      brickAreaHeight    
     } = this.props;
 
     const magicNumber = 5;
@@ -92,8 +88,6 @@ export default class YouWinConfettiAnimation extends Component {
       prerender: true,
       animationData: happySpikeNoCircle
     };
-
-    const topAdjustment = isTouch ? 30 : 0;
 
     return (
       <div>

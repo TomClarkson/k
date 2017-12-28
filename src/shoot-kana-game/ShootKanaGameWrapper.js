@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import ShootKanaGame from './ShootKanaGame';
 import SelectHiriganaKatakanaScreen from './SelectHiriganaKatakanaScreen';
 import SelectLevelBoxScreen from './SelectLevelBoxScreen';
-import YouWinGameScreen from './YouWinGameScreen';
 import { startGame, playHiriganaLevels, playKatakanaLevels, startLevel, selectLevel } from '../actions';
 import './game.css';
 import HomeBackground from './HomeBackground';
@@ -19,7 +18,6 @@ class ShootKanaGameInnerWrapper extends Component {
       levelCharacters,
       kanaType,
       startLevel,
-      hasCompletedLevel,
       currentLevelIndex,
       gameHeight,
       gameWidth,

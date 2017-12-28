@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import SVGStrokeText from '../svg-stroke-text/SVGStrokeText';
 import Animated from 'react-dom-animated';
 import { connect } from 'react-redux';
 import { startLevel } from '../actions';
@@ -55,8 +54,7 @@ export default connect(
     gameHeight: state.kanaShootGame.gameHeight,
     gameWidth: state.kanaShootGame.gameWidth,
     levelCharacters: state.kanaShootGame.levelCharacters,
-    kanaType: state.kanaShootGame.kanaType,
-    currentLevelIndex: state.kanaShootGame.currentLevelIndex
+    kanaType: state.kanaShootGame.kanaType
   }),
   { startLevel }
 )(YouLoseScreen);

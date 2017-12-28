@@ -64,8 +64,7 @@ export default connect(
     gameHeight: state.kanaShootGame.gameHeight,
     gameWidth: state.kanaShootGame.gameWidth,
     levelCharacters: state.kanaShootGame.levelCharacters,
-    kanaType: state.kanaShootGame.kanaType,
-    currentLevelIndex: state.kanaShootGame.currentLevelIndex
+    kanaType: state.kanaShootGame.kanaType
   }),
   { startLevel }
 )(StartNextLevelScreen);

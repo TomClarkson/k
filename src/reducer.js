@@ -1,11 +1,5 @@
 import levelCharacters from './levelCharacters';
 
-const makeInitialGameState = () => {
-  return {
-
-  };
-};
-
 const initialState = {
   isTouch: false,
   isOnHomeScreen: false,

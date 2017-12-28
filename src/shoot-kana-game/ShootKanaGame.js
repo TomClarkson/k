@@ -89,11 +89,9 @@ export class ShootKanaGamePresentation extends Component {
         {hasCompletedLevel &&
           <div style={{position: 'absolute', top: 0, left: 0, height: brickAreaHeight - userInputAreaHeight, width: gameWidth, zIndex: 1}}>
             <YouWinConfettiAnimation
-              isTouch={isTouch}
               brickAreaHeight={brickAreaHeight}
               spikeSize={spikeSize}
               spikeLeft={spikeLeft}
-              ballStartTop={gameHeight - userInputAreaHeight}
               onAnimationFinished={this.onYouWinAnimationFinished}
             />
           </div>

@@ -1,8 +1,6 @@
 import React from 'react';
 import TypingInput from './TypingInput';
 import CharacterChoiceTouchbar from './CharacterChoiceTouchbar';
-import { connect } from 'react-redux';
-import { userTyped } from '../actions';
 
 const userInputStyle = {
   background: '#EBB657',
