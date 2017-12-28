@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import Animated from 'react-dom-animated';
 
 export default class Bullet extends Component {
+  static defaultProps = {
+    bulletAnimationDuration: 700
+  };
   constructor(props, context){
     super(props, context);
     this.animatedValue = new Animated.Value(0);
   };
   componentDidMount(){
     Animated.timing(this.animatedValue, {
-      duration: 700,
+      duration: this.props.bulletAnimationDuration,
       toValue: 1,
     }).start(() => this.props.onAnimationFinished());
   }

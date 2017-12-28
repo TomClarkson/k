@@ -83,16 +83,17 @@ export class ShootKanaGamePresentation extends Component {
         {hasLostLevel &&
           <YouLoseScreen />
         }
-        {showNextLevelPreview && 
+        {showNextLevelPreview &&
           <StartNextLevelScreen />
         }
         {hasCompletedLevel &&
           <div style={{position: 'absolute', top: 0, left: 0, height: brickAreaHeight - userInputAreaHeight, width: gameWidth, zIndex: 1}}>
             <YouWinConfettiAnimation
+              isTouch={isTouch}
               brickAreaHeight={brickAreaHeight}
               spikeSize={spikeSize}
               spikeLeft={spikeLeft}
-              ballStartTop={gameHeight - userInputAreaHeight - 30}
+              ballStartTop={gameHeight - userInputAreaHeight}
               onAnimationFinished={this.onYouWinAnimationFinished}
             />
           </div>

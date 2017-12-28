@@ -95,7 +95,7 @@ const hitBrickWithWrong = {
 stories
   .add('Finished Game', () => {
     const finishedGameProps = {
-      isTouch:true,
+      isTouch:false,
       isOnHomeScreen:false,
       kanaType: "hirigana",
       isOnLevelSelect:false,

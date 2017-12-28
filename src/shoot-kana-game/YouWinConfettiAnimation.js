@@ -23,10 +23,17 @@ export default class YouWinConfettiAnimation extends Component {
     this.animatedValue = new Animated.Value(0);
     this.state = {
       showConfetti: false,
-      showHappySpike: false
+      showHappySpike: false,
+      animateInBullet: false
     };
   };
   componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        animateInBullet: true
+      });
+    }, 200);
+
     setTimeout(() => {
       this.animateTextIn();
     }, 500);
@@ -35,7 +42,7 @@ export default class YouWinConfettiAnimation extends Component {
       this.setState({
         showHappySpike: true
       });
-    }, 300);
+    }, 650);
   }
   animateTextIn = () => {
     Animated.spring(this.animatedValue, {
@@ -48,12 +55,13 @@ export default class YouWinConfettiAnimation extends Component {
     this.setState({showConfetti: true});
   }
   render() {
-    const { showConfetti, showHappySpike } = this.state;
+    const { showConfetti, showHappySpike, animateInBullet } = this.state;
     const { 
       ballStartTop, 
       spikeLeft, 
       spikeSize,
-      brickAreaHeight
+      brickAreaHeight,
+      isTouch
     } = this.props;
 
     const magicNumber = 5;
@@ -75,7 +83,7 @@ export default class YouWinConfettiAnimation extends Component {
       transform
     };
 
-    const targetTop = 200;
+    const targetTop = 180;
     // const (spikeSize / 2) + 27
 
     const bodymovinOptions = {
@@ -85,14 +93,17 @@ export default class YouWinConfettiAnimation extends Component {
       animationData: happySpikeNoCircle
     };
 
+    const topAdjustment = isTouch ? 30 : 0;
+
     return (
       <div>
-        {!showConfetti &&
+        {!showConfetti && animateInBullet &&
           <Bullet
+            bulletAnimationDuration={500}
             onAnimationFinished={this.bulletAnimationFinished}
             left={bulletLeft}
             size={40}
-            initialTop={ballStartTop}
+            initialTop={brickAreaHeight + (spikeSize / 2)}
             targetTop={targetTop} />
         }
         <Animated.div style={textStyles}>
