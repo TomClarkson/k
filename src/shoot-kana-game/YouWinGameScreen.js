@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SVGStrokeText from '../svg-stroke-text/SVGStrokeText';
 import Animated from 'react-dom-animated';
-import successSound from './sounds/winLevel.mp3';
+
 
 export default class YouWinGameScreen extends Component {
   constructor(props, context){
@@ -9,7 +9,6 @@ export default class YouWinGameScreen extends Component {
     this.animation = new Animated.Value(0);
   };
   componentDidMount(){
-    (new Audio(successSound)).play();
     Animated.spring(this.animation, {
       toValue: 1,
       velocity: 0.3,

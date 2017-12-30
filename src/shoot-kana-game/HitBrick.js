@@ -7,7 +7,7 @@ import Bullet from './Bullet';
 // import bubblePop3 from './sounds/bubblePop3.mp3';
 import ExplodingBrick from './ExplodingBrick';
 
-// const popSounds = [bubblePop1, bubblePop2, bubblePop3];
+const popSounds = ['bubblePop1', 'bubblePop2', 'bubblePop3'];
 
 const bulletSize = 40;
 
@@ -24,8 +24,8 @@ class HitBrick extends Component {
       isAnimatingBullet: false
     });
 
-    // const sound = popSounds[Math.floor(Math.random()*popSounds.length)];
-    // (new Audio(sound)).play();
+    const sound = popSounds[Math.floor(Math.random()*popSounds.length)];
+    this.props.audioPlayer.play(sound);
 
     this.props.brickHitByBullet(this.props.brick.id);
   };

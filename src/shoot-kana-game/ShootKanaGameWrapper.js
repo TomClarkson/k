@@ -7,8 +7,35 @@ import { startGame, playHiriganaLevels, playKatakanaLevels, startLevel, selectLe
 import './game.css';
 import HomeBackground from './HomeBackground';
 import LevelPreview from './LevelPreview';
+import bubblePop1 from './sounds/bubblePop1.mp3';
+import bubblePop2 from './sounds/bubblePop2.mp3';
+import bubblePop3 from './sounds/bubblePop3.mp3';
+import AudioPlayer from './AudioPlayer';
+import winLevelSound from './sounds/winLevel.mp3';
 
 class ShootKanaGameInnerWrapper extends Component {
+  constructor(props) {
+    super(props);
+    this.audioPlayer = new AudioPlayer();
+    this.audioPlayer.addAudios([
+      {
+        name: 'bubblePop1',
+        audio: bubblePop1
+      },
+      {
+        name: 'bubblePop2',
+        audio: bubblePop2
+      },
+      {
+        name: 'bubblePop3',
+        audio: bubblePop3
+      },
+      {
+        name: 'winLevel',
+        audio: winLevelSound
+      }
+    ]);
+  }
   render() {
     const {
       playHiriganaLevels,
@@ -76,7 +103,7 @@ class ShootKanaGameInnerWrapper extends Component {
     }
 
     return (
-      <ShootKanaGame />
+      <ShootKanaGame audioPlayer={this.audioPlayer} />
     );
   }
 }
@@ -148,6 +175,8 @@ class ShootKanaGameOuterWrapper extends Component {
     this.props.startGame(
       this.makeGameData()
     );
+
+    
   }
   render() {
     const { gameHeight, gameWidth, isTouch } = this.state;

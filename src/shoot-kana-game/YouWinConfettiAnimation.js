@@ -26,6 +26,7 @@ export default class YouWinConfettiAnimation extends Component {
     };
   };
   componentDidMount() {
+    this.props.audioPlayer.play('winLevel');
     setTimeout(() => {
       this.setState({
         animateInBullet: true
