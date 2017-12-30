@@ -142,8 +142,8 @@ class ShootKanaGameOuterWrapper extends Component {
   }
   makeGameData = () => {
     const { isTouch, gameHeight, gameWidth } = this.state;
-
-    const numberOfBricksForLevel = 3;
+    
+    const numberOfBricksForLevel = process.env.NODE_ENV === 'development' ? 30 : 20;
 
     if(!isTouch) {
       return {

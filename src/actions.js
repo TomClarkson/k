@@ -10,13 +10,18 @@ export const userSelectedCharacter = (character) => ({
 const getRandomItem = (arr) =>
   arr[Math.floor(Math.random()*arr.length)];
 
-const getRandomPosition = (min, max) =>
-  Math.floor(Math.random()*max - min);
+const getRandomPosition = (min, max) => {
+  const range = max - min;
+  const randomX = Math.floor(Math.random()* range);
+  return min + randomX;
+};
 
-export const createBrick = ({ brickVy, characters, brickWidth, brickHeight, gameWidth }) => {
+export const createBrick = ({ brickVy, characters, brickWidth, brickHeight, gameWidth, spikeSize }) => {
   const character = getRandomItem(characters);
 
-  const left = getRandomPosition(0, gameWidth - brickWidth - 20);
+  const quarterSpikey = spikeSize / 2;
+  const minimumBrickLeft = quarterSpikey;
+  const left = getRandomPosition(minimumBrickLeft, gameWidth - quarterSpikey);
 
   const brick = {
     id: uuid.v4(),
@@ -113,7 +118,6 @@ const addBrickEpic = (action$, { getState }) =>
   action$.ofType("START_KANA_SHOOT_LEVEL")
     .switchMap(() =>
         makeBrickIntervals$(2000)
-        .do(() => console.log('shes ticking '))
         .map(() =>
           addBrick(getState().kanaShootGame)
         )
@@ -124,8 +128,8 @@ const addBrickEpic = (action$, { getState }) =>
         )
     );
 
-// const TICKER_INTERVAL = 1000 / 60;
-const TICKER_INTERVAL = 1000;
+const TICKER_INTERVAL = 1000 / 60;
+// const TICKER_INTERVAL = 1000;
 
 const makeTimeObj = () => ({
   time: Date.now()

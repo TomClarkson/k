@@ -2,6 +2,7 @@ import levelCharacters from './levelCharacters';
 
 const initialState = {
   isTouch: false,
+  numberOfBricksForLevel: null,
   isOnHomeScreen: false,
   kanaType: 'hirigana',
   isOnLevelSelect: true,
@@ -9,7 +10,6 @@ const initialState = {
   characters: [],
   gameHeight: null,
   gameWidth: null,
-  numberOfBricksForLevel: null,
   failedBrickCount: 0,
   successBrickCount: 0,
   brickHeight: null,
@@ -112,7 +112,8 @@ export default (state = initialState, action) => {
         brickVy: action.brickVy,
         isTouch: action.isTouch,
         spikeSize: action.spikeSize,
-        userInputAreaHeight: action.userInputAreaHeight
+        userInputAreaHeight: action.userInputAreaHeight,
+        numberOfBricksForLevel: action.numberOfBricksForLevel
       };
     case 'START_KANA_SHOOT_LEVEL':
       const charactersForLevel = state.levelCharacters[state.kanaType][action.index];
@@ -120,7 +121,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         characters: charactersForLevel,
-        numberOfBricksForLevel: 5,
         failedBrickCount: 0,
         successBrickCount: 0,
         isOnLevelSelect: false,
