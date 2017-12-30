@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import PointPlusBox from './PointPlusBox';
 import Brick from './Brick';
 import Bullet from './Bullet';
-// import bubblePop1 from './sounds/bubblePop1.mp3';
-// import bubblePop2 from './sounds/bubblePop2.mp3';
-// import bubblePop3 from './sounds/bubblePop3.mp3';
 import ExplodingBrick from './ExplodingBrick';
+import { withAudioPlayer } from '../AudioPlayerProvider';
 
 const popSounds = ['bubblePop1', 'bubblePop2', 'bubblePop3'];
 
@@ -68,4 +66,4 @@ class HitBrick extends Component {
   }
 }
 
-export default HitBrick;
+export default withAudioPlayer(HitBrick);

@@ -6,6 +6,7 @@ import Animated from 'react-dom-animated';
 import ShooterSpike from './ShooterSpike';
 import BodyMovin from '../animations/BodyMovin';
 import happySpikeNoCircle from './HappySpikeNoCircle.json';
+import { withAudioPlayer } from '../AudioPlayerProvider';
 
 const fettiFig = {
   angle: 90,
@@ -15,7 +16,7 @@ const fettiFig = {
   decay: 0.94
 };
 
-export default class YouWinConfettiAnimation extends Component {
+class YouWinConfettiAnimation extends Component {
   constructor(props, context){
     super(props, context);
     this.animatedValue = new Animated.Value(0);
@@ -122,3 +123,5 @@ export default class YouWinConfettiAnimation extends Component {
     );
   }
 }
+
+export default withAudioPlayer(YouWinConfettiAnimation);

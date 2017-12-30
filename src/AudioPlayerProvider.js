@@ -1,10 +1,56 @@
 import React, { Component } from "react";
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import AudioPlayer from './AudioPlayer';
+
+import bubblePop1 from './shoot-kana-game/sounds/bubblePop1.mp3';
+import bubblePop2 from './shoot-kana-game/sounds/bubblePop2.mp3';
+import bubblePop3 from './shoot-kana-game/sounds/bubblePop3.mp3';
+import winLevelSound from './shoot-kana-game/sounds/winLevel.mp3';
+
+export const withAudioPlayer = (Component) => {
+  return class AudioPlayerWrapper extends React.Component {
+    static contextTypes = {
+      audioPlayer: PropTypes.object
+    }
+    render() {
+      return (
+        <Component 
+          {...this.props} 
+          audioPlayer={this.context.audioPlayer} />
+      );
+    }
+  }
+}
 
 export default class AudioPlayerProvider extends Component {
   static childContextTypes = {
     audioPlayer: PropTypes.object.isRequired
   };
+  constructor(props) {
+    super(props);
+    this.audioPlayer = new AudioPlayer();
+    this.audioPlayer.addAudios([
+      {
+        name: 'bubblePop1',
+        audio: bubblePop1
+      },
+      {
+        name: 'bubblePop2',
+        audio: bubblePop2
+      },
+      {
+        name: 'bubblePop3',
+        audio: bubblePop3
+      },
+      {
+        name: 'winLevel',
+        audio: winLevelSound
+      }
+    ]);
+  }
+  getChildContext() {
+    return {audioPlayer: this.audioPlayer};
+  }
   render() {
     return this.props.children;
   }

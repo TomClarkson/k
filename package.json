@@ -6,6 +6,7 @@
     "animated": "^0.2.0",
     "array-shuffle": "^1.0.1",
     "bodymovin": "^4.6.1",
+    "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-dom-animated": "^1.0.3",

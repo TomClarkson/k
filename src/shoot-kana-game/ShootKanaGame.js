@@ -67,8 +67,7 @@ export class ShootKanaGamePresentation extends Component {
       userText,
       userAnswerIsIncorrect,
       isTouch,
-      hasCompletedLevel,
-      audioPlayer
+      hasCompletedLevel
     } = this.props;
 
     const { showNextLevelPreview } = this.state;
@@ -90,7 +89,6 @@ export class ShootKanaGamePresentation extends Component {
         {hasCompletedLevel &&
           <div style={{position: 'absolute', top: 0, left: 0, height: brickAreaHeight - userInputAreaHeight, width: gameWidth, zIndex: 1}}>
             <YouWinConfettiAnimation
-              audioPlayer={audioPlayer}
               brickAreaHeight={brickAreaHeight}
               spikeSize={spikeSize}
               spikeLeft={spikeLeft}
@@ -107,7 +105,6 @@ export class ShootKanaGamePresentation extends Component {
 
           {hitBricks.map(b =>
             <HitBrick
-              audioPlayer={audioPlayer}
               key={b.id}
               ballStartTop={gameHeight - userInputAreaHeight - 30}
               brickHitByBullet={brickHitByBullet}
