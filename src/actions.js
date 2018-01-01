@@ -128,8 +128,8 @@ const addBrickEpic = (action$, { getState }) =>
         )
     );
 
-const TICKER_INTERVAL = 1000 / 60;
-// const TICKER_INTERVAL = 1000;
+// const TICKER_INTERVAL = 1000 / 60;
+const TICKER_INTERVAL = 1000;
 
 const makeTimeObj = () => ({
   time: Date.now()

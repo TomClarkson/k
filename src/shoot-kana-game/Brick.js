@@ -5,10 +5,10 @@ import Animated from 'react-dom-animated';
 class IncorrectAnswerBubble extends React.Component {
   constructor(props) {
     super(props);
-    this.opacityAnimated = new Animated.Value(0);
+    this.animatedValue = new Animated.Value(0);
   }
   componentDidMount() {
-    Animated.spring(this.opacityAnimated, {
+    Animated.spring(this.animatedValue, {
       toValue: 1
     }).start();
   }
@@ -53,10 +53,17 @@ class IncorrectAnswerBubble extends React.Component {
     const { romaji } = this.props;
 
     const wrongBubbleStyles = this.makeWrongBubbleStyles();
+
+    const scale = this.animatedValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0.5, 1]
+    });
+
     return (
       <Animated.div style={{
         ...wrongBubbleStyles,
-        opacity: this.opacityAnimated
+        opacity: this.animatedValue,
+        transform: [ { scale } ]
       }}>
         <span style={{paddingBottom: 5}}>{romaji}</span>
       </Animated.div>

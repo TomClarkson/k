@@ -26,6 +26,8 @@ import LevelPreview from './LevelPreview';
 import YouWinLevel from './YouWinLevel';
 import { ShootKanaGamePresentation } from './ShootKanaGame';
 import happySpikeNoCircle from './HappySpikeNoCircle.json';
+import AudioPlayerProvider from '../AudioPlayerProvider';
+import gameSounds from './sounds';
 
 const characters = [
   {
@@ -121,7 +123,9 @@ stories
       "isOnLevelPreview":false
     };
     return (
-      <ShootKanaGamePresentation {...finishedGameProps} />
+      <AudioPlayerProvider initialAudios={gameSounds}>
+        <ShootKanaGamePresentation {...finishedGameProps} />
+      </AudioPlayerProvider>
     );
   })
   .add('You Win Level', () => 
@@ -251,13 +255,15 @@ stories
   .add('Hit Brick', () => {
     // hit brick needs to be defined outside the function as this function is getting called twice for some reason
     return (
-      <div style={{position: 'relative', background: '#363636', height: gameHeight, width: gameWidth}}>
-        <HitBrick
-          ballStartTop={gameHeight}
-          hitBrickAnimationFinished={action('hitBrickAnimationFinished')}
-          brickHitByBullet={action('brickHitByBullet')}
-          brick={hitBrickWithWrong} />
-      </div>
+      <AudioPlayerProvider initialAudios={gameSounds}>
+        <div style={{position: 'relative', background: '#363636', height: gameHeight, width: gameWidth}}>
+          <HitBrick
+            ballStartTop={gameHeight}
+            hitBrickAnimationFinished={action('hitBrickAnimationFinished')}
+            brickHitByBullet={action('brickHitByBullet')}
+            brick={hitBrickWithWrong} />
+        </div>
+      </AudioPlayerProvider>
     );
   })
   .add('Point Plus Box', () => (
@@ -277,7 +283,7 @@ stories
     const brickWithUserAnsweredWrong = {
       ...brick,
       userAnsweredWrong,
-      top: 100
+      top: 200
     };
 
     return (

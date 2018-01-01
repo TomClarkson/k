@@ -18,6 +18,7 @@ import spikeFallingOverAnimationData from './spikeFallingOver.json';
 import YouLoseScreen from './YouLoseScreen';
 import YouWinConfettiAnimation from './YouWinConfettiAnimation';
 import StartNextLevelScreen from './StartNextLevelScreen';
+import ShakeScreenWrapper from './ShakeScreenWrapper';
 
 const getSpikeLeft = ({bottomBrick, gameWidth, spikeSize}) => {
   const ballLeftInSpikeWrapper = (spikeSize / 2) + 27;
@@ -79,7 +80,7 @@ export class ShootKanaGamePresentation extends Component {
     const brickAreaHeight = getBrickAreaHeight({ spikeSize, gameHeight, userInputAreaHeight });
 
     return (
-      <div style={{position: 'relative'}}>
+      <ShakeScreenWrapper userAnswerIsIncorrect={userAnswerIsIncorrect}>
         {hasLostLevel &&
           <YouLoseScreen />
         }
@@ -142,7 +143,7 @@ export class ShootKanaGamePresentation extends Component {
           userSelectedCharacter={userSelectedCharacter}
           bottomBrick={bottomBrick}
           characters={characters} />
-      </div>
+      </ShakeScreenWrapper>
     );
   }
 }
