@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Animated from 'react-dom-animated';
+import Animated from 'animated/lib/targets/react-dom';
 
 export default class Bullet extends Component {
   static defaultProps = {

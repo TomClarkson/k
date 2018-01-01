@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Animated from 'react-dom-animated';
+import Animated from 'animated/lib/targets/react-dom';
+import Easing from 'animated/lib/Easing';
 import { withAudioPlayer } from '../AudioPlayerProvider';
 
 class ShakeScreenWrapper extends Component {
@@ -16,11 +17,10 @@ class ShakeScreenWrapper extends Component {
     this.props.audioPlayer.play('shakeKanaShooterScreen');
 
     this.animatedValue.setValue(0);
-    // import Easing from 'animated/lib/Easing';
     Animated.spring(this.animatedValue, {
       duration: 300,
       toValue: 3,
-      // ease: Easing.bounce
+      ease: Easing.bounce
     }).start();
   }
   render() {

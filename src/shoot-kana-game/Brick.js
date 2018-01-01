@@ -1,6 +1,6 @@
 import React from 'react';
 import bubbleCurve from './bubbleCurve.svg';
-import Animated from 'react-dom-animated';
+import Animated from 'animated/lib/targets/react-dom';
 
 class IncorrectAnswerBubble extends React.Component {
   constructor(props) {

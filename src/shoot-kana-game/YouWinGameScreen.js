@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import SVGStrokeText from '../svg-stroke-text/SVGStrokeText';
-import Animated from 'react-dom-animated';
-
+import Animated from 'animated/lib/targets/react-dom';
 
 export default class YouWinGameScreen extends Component {
   constructor(props, context){

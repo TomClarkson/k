@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Animated from 'react-dom-animated';
+import Animated from 'animated/lib/targets/react-dom';
 import { connect } from 'react-redux';
 import { startLevel } from '../actions';
 import LevelPreview from './LevelPreview';

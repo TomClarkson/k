@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Confetti from 'react-dom-confetti';
 import Bullet from './Bullet';
 import SVGStrokeText from '../svg-stroke-text/SVGStrokeText';
-import Animated from 'react-dom-animated';
+import Animated from 'animated/lib/targets/react-dom';
 import ShooterSpike from './ShooterSpike';
 import BodyMovin from '../animations/BodyMovin';
 import happySpikeNoCircle from './HappySpikeNoCircle.json';
